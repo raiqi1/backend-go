@@ -26,7 +26,7 @@ import (
 )
 
 func main() {
-	dsn := "root:vglRbRguQKFRZwZTcnehJRPLMkFuqXep@tcp(mysql.railway.internal:3306)/railway?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:vglRbRguQKFRZwZTcnehJRPLMkFuqXep@tcp(junction.proxy.rlwy.net:12092)/railway?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err.Error())
