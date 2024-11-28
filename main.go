@@ -26,7 +26,7 @@ import (
 )
 
 func main() {
-	dsn := "root:OXheTfVftcwnfmtCedPrBaRSIAQNJNfN@tcp(mysql.railway.internal:3306)/railway?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:vglRbRguQKFRZwZTcnehJRPLMkFuqXep@tcp(junction.proxy.rlwy.net:12092)/railway?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err.Error())
@@ -52,7 +52,13 @@ func main() {
 	sessionWebHandler := webHandler.NewSessionHandler(userService)
 
 	router := gin.Default()
-	router.Use(cors.Default())
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"https://crowdfunding-one-rust.vercel.app"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
+		AllowHeaders:     []string{"Authorization", "Content-Type"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}))
 
 	router.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "Server is running")
